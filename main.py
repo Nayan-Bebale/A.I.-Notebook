@@ -35,7 +35,7 @@ RANDOM_QUESTIONS = ["What were the highlights of your day?", "Were there any cha
 
 Bootstrap(app)
 
-app.config['SECRET_KEY'] = "youandme90through2to1forme20"
+app.config['SECRET_KEY'] = "Your_Secret_Key"
 
 # CONNECT TO DB
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///ai-notebook-collection.db"
@@ -195,7 +195,7 @@ def add_new_note():
         data = request.form.to_dict()
 
         # url of A.I. tool
-        url = "https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText?key=AIzaSyDPgRBC5cQd7eJ7Pi75-nvzyLI86fzaano"
+        url = "Use_Your_Google_API_key"
 
         questions = {
             "How was your day overall?": data['response1'],
@@ -267,7 +267,7 @@ def add_new_note():
         questions_json = json.dumps(questions_list)
         data_json = json.dumps(data)
         response = requests.get(
-            'https://api.unsplash.com/photos/random/?client_id=ekudPmYouAOqvrVxsvim-MD-I6NqTqKHjX15qfs0YXo&query=nature aesthetic')
+            'https://api.unsplash.com/photos/random/?client_id=Your_upsplash_key')
         res_data = response.json()
         current_datetime = datetime.now()
         img = res_data['urls']['full']
