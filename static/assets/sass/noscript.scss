@@ -1,0 +1,28 @@
+@import 'vars';
+@import 'functions';
+@import 'mixins';
+@import 'vendor';
+@import 'breakpoints';
+@import 'html-grid';
+
+/*
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+*/
+
+/* Banner */
+
+	#banner {
+		body.is-preload & {
+			&:after {
+				opacity: 0.85;
+			}
+
+			> .inner {
+				@include vendor('filter', 'none');
+				@include vendor('transform', 'none');
+				opacity: 1;
+			}
+		}
+	}

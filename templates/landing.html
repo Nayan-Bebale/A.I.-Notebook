@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Diary</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../static/assets/css/main.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+		<noscript><link rel="stylesheet" href="../static/assets/css/noscript.css" /></noscript>
+		<style>
+			.image-container {
+				width: 300px;
+				height: 400px;
+				border-radius: 1%;
+				overflow: hidden; /* To ensure the image doesn't overflow the container */
+			}
+
+			.image-container img {
+				width: 100%; /* Make the image fill the container's width */
+				height: auto; /* Maintain aspect ratio */
+			}
+		</style>
+	</head>
+	{% block content %}
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+				<!-- Note: The "styleN" class below should match that of the banner element. -->
+					<header id="header" class="alt style2">
+						<a href="{{ url_for('home') }}" class="logo"><strong>Diary</strong> <span>by US</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="{{ url_for('home') }}">Home</a></li>
+							<li><a href="generic.html">Generic</a></li>
+						</ul>
+						<ul class="actions stacked">
+							<li><a href="{{ url_for('logout') }}" class="button fit">Logout</a></li>
+						</ul>
+					</nav>
+
+				<!-- Banner -->
+				<!-- Note: The "styleN" class below should match that of the header element. -->
+					<section id="banner">
+						<div class="inner">
+							<span class="image">
+								<img style="width: 100%" src="../static/assets/images/photo.jpg" alt="" />
+							</span>
+							<header class="major">
+								<h1>Landing</h1>
+							</header>
+							<div class="content">
+								<p>Lorem ipsum dolor sit amet nullam consequat<br />
+								sed veroeros. tempus adipiscing nulla.</p>
+							</div>
+						</div>
+					</section>
+
+				<!-- Main -->
+					<div id="main">
+
+
+						<!-- Two -->
+						{% for notes in all_notes %}
+							<section id="two" class="spotlights">
+								<section>
+									<a href="{{url_for('show_note', note_id=notes.id)}}" class="image">
+										<img class="image-container" src="{{notes.img_url}}" alt="" data-position="center center" />
+									</a>
+									<div class="content">
+										<div class="inner">
+											<header class="major">
+												<h3>{{ notes.title }}</h3>
+											</header>
+											<p>{{notes.date.strftime("%B %d, %Y")}}</p>
+											<ul class="actions">
+												<li><a href="{{url_for('show_note', note_id=notes.id)}}" class="button">Learn more</a></li>
+											</ul>
+										</div>
+									</div>
+								</section>
+							</section>
+						{% endfor %}
+
+			</div>
+		{% include "footer.html" %}
+{% endblock %}

@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Diary</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../static/assets/css/main.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+		<noscript><link rel="stylesheet" href="../static/assets/css/noscript.css" /></noscript>
+		<style>
+			 .image-container {
+				width: 900px;
+				height: 300px;
+				border-radius: 1%;
+				overflow: hidden; /* To ensure the image doesn't overflow the container */
+			}
+
+			.image-container img {
+				width: 100%; /* Make the image fill the container's width */
+				height: auto; /* Maintain aspect ratio */
+			}
+
+
+		</style>
+	</head>
+{% block content %}
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<a href="{{ url_for('home') }}" class="logo"><strong>Diary</strong> <span>by US</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="{{ url_for('home') }}">Home</a></li>
+							<li><a href="{{ url_for('landing') }}">All Notes</a></li>
+						</ul>
+						<ul class="actions stacked">
+							<li><a href="{{ url_for('logout') }}" class="button fit">Logout</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main" class="alt">
+
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h1>{{title}}</h1>
+									</header>
+										<div class="image-container">
+											<img src="{{img}}" alt="" />
+										</div>
+									<br>
+									<h4>How was your day overall?</h4>
+									<p>{{data['response1']}}</p>
+									<br>
+									<h4>{{questions[1]}}</h4>
+									<p>{{data['response2']}}</p>
+									<br>
+									<h4>{{questions[2]}}</h4>
+									<p>{{data['response3']}}</p>
+									<br>
+									<h4>{{questions[3]}}</h4>
+									<p>{{data['response4']}}</p>
+									<br>
+									<br>
+									<h2>Summary</h2>
+									<div>
+										<ul>
+											<li><h3>Key Points</h3><br>
+											{{summry['Keypoints']}}</li>
+											<li><h3>Suggestions</h3><br>
+											{{summry['Suggestions']}}</li>
+											<li><h3>Summary of the day</h3><br>
+											{{sum}}</li>
+										</ul>
+									</div>
+
+									<p>{{date.strftime("%B %d, %Y")}}</p>
+									<br>
+									<a href="{{ url_for('home') }}" class="button">Home</a>
+								</div>
+
+							</section>
+
+					</div>
+
+	{% include "footer.html" %}
+{% endblock %}

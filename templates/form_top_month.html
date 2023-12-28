@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Diary</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../static/assets/css/main.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+<!--		<link rel="stylesheet" href="static/images/assets/css/new_main.css">-->
+		<noscript><link rel="stylesheet" href="../static/assets/css/noscript.css" /></noscript>
+	<style>
+		/* background colors */
+		body{
+			background-color: #1F6E8C; /* Background color */
+			background-image: url("/assets/images/photo.jpg"), linear-gradient(0deg, rgb(255, 255, 255), rgba(131, 16, 16, 0.1)), url(/assets/images/bg.jpg);
+		  }
+
+		#footer-bg{
+			background-color: #1F6E8C; /* Background color */
+			background-image: url("/assets/images/photo.jpg"), linear-gradient(0deg, rgb(255, 255, 255), rgba(131, 16, 16, 0.1)), url(/assets/images/bg.jpg);
+			color: black;
+
+		}
+
+		label{
+			color: black;
+		}
+
+		.footer h3{
+			color: black;
+		}
+
+		.footer p{
+			color: black;
+		}
+
+		.footer-links a{
+			color: black;
+		}
+			.container {
+				max-width: 300px;
+				max-height: 300px;
+				margin: 0 auto;
+				padding: 15px;
+				text-align: center;
+				background: rgba(0, 0, 0, 0.73); /* Semi-transparent background */
+				border-radius: 10px;
+			}
+
+			header {
+				margin-bottom: 20px;
+				animation: fadeIn 2s ease; /* Example animation */
+			}
+
+			/* AI-inspired background (You can use an image or pattern) */
+			.container {
+				background-image: url('/static/assets/images/photo2.png');
+				background-size: cover;
+			}
+
+			/* Define other styles, animations, and colors as needed */
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+
+				  @keyframes shimmer {
+					0% { color: #ff5733; }
+					25% { color: #ffcc00; }
+					50% { color: #33ff33; }
+					75% { color: #3366ff; }
+					100% { color: #ff5733; }
+				  }
+
+				#nextBtn {
+					float: right;
+				}
+
+				#prevBtn {
+					float: left;
+				}
+
+
+				/* Style the form */
+
+		/* Style the question labels */
+		.question-label {
+			font-size: 14px;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+
+		/* Style the user responses */
+		#user-response1,
+		#user-response2,
+		#user-response3,
+		#user-response4,
+		#user-response5 {
+			width: 100%;
+			max-width: 300px;
+			max-height: 210px;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			margin-bottom: 15px;
+			font-size: 16px;
+		}
+
+		/* Style the navigation buttons */
+		.buttons {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 10px;
+		}
+
+		button {
+			background-color: transparent;
+			color: black;
+			border: none;
+			border-radius: 2px;
+			padding: 1px 10px;
+			cursor: pointer;
+			font-size: 14px;
+		}
+
+		button:hover {
+			background-color: transparent;
+		}
+
+		#submitButton {
+			width: 100%;
+		}
+
+		.response-container p {
+			font-size: 16px;
+			margin-bottom: 10px;
+		}
+
+	</style>
+</head>
+
+<body>
+<div id="wrapper">
+	<header id="header" class="alt">
+						<a href="{{ url_for('home') }}" class="logo"><strong>Diary</strong> <span>by US</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="{{ url_for('home') }}">Home</a></li>
+							<li><a href="{{ url_for('landing') }}">All Notes</a></li>
+							<li><a href="generic.html">Generic</a></li>
+						</ul>
+						<ul class="actions stacked">
+							<li><a href="#seven" class="button primary fit">Get Started</a></li>
+							<li><a href="{{ url_for('logout') }}" class="button fit">Logout</a></li>
+						</ul>
+					</nav>
+
+	<!-- Form -->
+		<section id="contact">
+						<div class="inner">
+			<header>
+				<h1>Key Goals for This Month</h1>
+				<p>Monthly goals provide direction.<br> Record your key targets and take steps toward achieving them.</p>
+				<br>
+			</header>
+			<form id="questions" action="{{ url_for('goal_form') }}" method="post">
+
+				<div class="question container" id="q1">
+					<label class="question-label">GOAL 1</label>
+					<textarea id="user-response1" name="response1" rows="10"></textarea>
+
+				</div>
+				<div class="question container" id="q2">
+					<label class="question-label">GOAL 2</label>
+					<textarea id="user-response2" name="response2" rows="10"></textarea>
+				</div>
+				<div class="question container" id="q3">
+					<label class="question-label">GOAL 3</label>
+					<textarea id="user-response3" name="response3" rows="10"></textarea>
+				</div>
+				<div class="question container" id="q4">
+					<label class="question-label">GOAL 4</label>
+					<textarea id="user-response4" name="response4" rows="10"></textarea>
+				</div>
+				<div class="question container" id="q5">
+					<label class="question-label">GOAL 5</label>
+					<textarea id="user-response5" name="response5" rows="10"></textarea>
+				</div>
+				<!-- Add more questions here -->
+
+				<!-- Buttons to navigate through questions -->
+				<div class="buttons">
+					<button type="button" id="prevBtn" onclick="prevQuestion()">Previous</button>
+					<button type="button" id="nextBtn" onclick="nextQuestion()">Next</button>
+			</div>
+				<br>
+								<button id="submitButton">Submit</button>
+
+			</form>
+
+						</div>
+					</section>
+	<footer class="footer" id="footer-bg">
+            <div class="inner">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3>Contact Us</h3>
+                        <p>Email: contact@example.com</p>
+                        <p>Phone: +1 (123) 456-7890</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>Follow Us</h3>
+                        <ul class="icons" style="display: inline-block; margin-right: 10px">
+								<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+								<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							</ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">FAQs</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <a><p class="text-center">&copy; 2023 AI Notebook. All rights reserved.</p></a>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+
+        </div>
+
+		<!-- Scripts -->
+			<script src="../static/assets/js/jquery.min.js"></script>
+			<script src="../static/assets/js/jquery.scrolly.min.js"></script>
+			<script src="../static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="../static/assets/js/browser.min.js"></script>
+			<script src="../static/assets/js/breakpoints.min.js"></script>
+			<script src="../static/assets/js/util.js"></script>
+			<script src="../static/assets/js/main.js"></script>
+			<script src="../static/assets/js/goalsform.js"></script>
+
+    </body>
+</html>

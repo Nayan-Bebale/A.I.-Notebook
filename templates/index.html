@@ -1,0 +1,291 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Diary</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../static/assets/css/main.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+<!--		<link rel="stylesheet" href="static/images/assets/css/new_main.css">-->
+		<noscript><link rel="stylesheet" href="../static/assets/css/noscript.css" /></noscript>
+	</head>
+	<style>
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 15px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.73); /* Semi-transparent background */
+    border-radius: 10px;
+}
+
+header {
+    margin-bottom: 20px;
+    animation: fadeIn 2s ease; /* Example animation */
+}
+
+/* AI-inspired background (You can use an image or pattern) */
+.container {
+    background-image: url('/static/assets/images/bg.jpg');
+    background-size: cover;
+}
+
+/* Define other styles, animations, and colors as needed */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+	  @keyframes shimmer {
+		0% { color: #ff5733; }
+		25% { color: #ffcc00; }
+		50% { color: #33ff33; }
+		75% { color: #3366ff; }
+		100% { color: #ff5733; }
+	  }
+
+	  .major {
+		animation: shimmer 3s linear infinite;
+	  }
+
+	  /* Style for the form container */
+        #question-form {
+            max-width: 100%; /* Adjust the maximum width as needed */
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            box-sizing: border-box; /* Ensure padding and border are included in the width */
+            overflow: hidden; /* Hide any overflowing content */
+        }
+		#nextBtn {
+			float: right;
+		}
+
+		#prevBtn {
+			float: left;
+		}
+
+		#submitBtn{
+			float: right;
+		}
+	  	#user-response {
+            width: 100%; /* Take up 100% of available width */
+            min-height: 100px; /* Set a minimum height to display multiple lines */
+        }
+
+		/* Style the form */
+
+/* Style the question labels */
+.question-label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+/* Style the user responses */
+#user-response1,
+#user-response2,
+#user-response3,
+#user-response4,
+#user-response5,
+#user-response6,
+#user-response8,
+#user-response9 {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+/* Style the navigation buttons */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+button {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    padding: 1px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: transparent;
+}
+
+#submitButton {
+	width: 100%;
+}
+
+.response-container p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+	</style>
+{% block content %}
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<a href="{{ url_for('home') }}" class="logo"><strong>Diary</strong> <span>by US</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="{{ url_for('home') }}">Home</a></li>
+							<li><a href="{{ url_for('landing') }}">All Notes</a></li>
+							<li><a href="{{ url_for('goal_form') }}">Make Goals</a></li>
+						</ul>
+						<ul class="actions stacked">
+							<li><a href="#seven" class="button primary fit">Get Started</a></li>
+							<li><a href="{{ url_for('logout') }}" class="button fit">Logout</a></li>
+						</ul>
+					</nav>
+
+				<!-- Banner -->
+					<section id="banner" class="major">
+						<div class="inner">
+							<header class="major">
+								<h1>Hi, {{current_user.name}}</h1>
+							</header>
+							<div class="content">
+								<p style="font-size: large">{{thought}}</p>
+								<br>
+								<ul class="actions">
+									<li><a href="#seven" class="button next scrolly">Get Started</a></li>
+								</ul>
+							</div>
+						</div>
+					</section>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- One -->
+							<section id="one" class="tiles">
+								{% for notes in all_notes %}
+									<article>
+										<span class="image">
+											<img src="{{notes.img_url}}" alt="" />
+										</span>
+										<header class="major">
+											<h3><a href="{{url_for('show_note', note_id=notes.id)}}" class="link">{{notes.title}}</a></h3>
+											<p style="font-size: medium">{{notes.date.strftime("%B %d, %Y")}}</p>
+										</header>
+									</article>
+								{% endfor %}
+							</section>
+
+						<!-- Two -->
+							<section id="two">
+								<div class="inner">
+									{% if goals %}
+										<header class="major">
+											<h2>Goals for the Month <p style="display:inline-block; font-size: small"> {{goals.date.strftime("%B, %Y")}}</p></h2>
+										</header>
+											<ul>
+												<li>{{data.response1}}</li>
+												<li>{{data.response2}}</li>
+												<li>{{data.response3}}</li>
+												<li>{{data.response4}}</li>
+												<li>{{data.response5}}</li>
+											</ul>
+											<br>
+											<ul class="actions">
+												<li><a href="{{url_for('goal_form')}}" class="button next">Update Goals</a></li>
+											</ul>
+									{% else %}
+										<header class="major">
+											<h2>Goals for the Month</h2>
+										</header>
+										<p>Stay motivated with monthly milestones. Write down your targets and celebrate your successes.</p>
+										<ul class="actions">
+											<li><a href="{{url_for('goal_form')}}" class="button next">Set Goals</a></li>
+										</ul>
+									{% endif %}
+
+								</div>
+							</section>
+
+					</div>
+
+				<!-- Contact -->
+					<section id="contact">
+						<div class="inner" id="seven">
+
+			<form id="questions" action="{{ url_for('add_new_note') }}" method="post">
+
+				<div class="question container" id="q1">
+					<label class="question-label">How was your day overall?</label>
+					<textarea id="user-response1" name="response1" rows="10"></textarea>
+
+				</div>
+				<div class="question container" id="q2">
+					<label class="question-label">{{questions[0]}}</label>
+					<textarea id="user-response2" name="response2" rows="10"></textarea>
+				</div>
+				<div class="question container" id="q3">
+					<label class="question-label">{{questions[1]}}</label>
+					<textarea id="user-response3" name="response3" rows="10"></textarea>
+				</div>
+				<div class="question container" id="q4">
+					<label class="question-label">{{questions[2]}}</label>
+					<textarea id="user-response4" name="response4" rows="10"></textarea>
+				</div>
+
+				<!-- Add more questions here -->
+
+				<!-- Buttons to navigate through questions -->
+				<div class="buttons">
+					<button type="button" id="prevBtn" onclick="prevQuestion()">Previous</button>
+					<button type="button" id="nextBtn" onclick="nextQuestion()">Next</button>
+			</div>
+				<br>
+								<button id="submitButton">Submit</button>
+
+			</form>
+							<header>
+								<h1>AI-Inspired Questionnaire</h1>
+								<p>Share your thoughts with our AI!</p>
+								<br>
+							</header>
+						</div>
+					</section>
+
+		<section id="contact">
+			<div class="inner">
+			<form id="questions">
+				<div class="question container">
+					<label class="question-label">How was your day overall?</label>
+					<textarea id="user-response" name="response" rows="10"></textarea>
+				</div>
+			</form>
+			</div>
+		</section>
+
+				{% include "footer.html" %}
+{% endblock %}
